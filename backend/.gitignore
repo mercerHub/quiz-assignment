@@ -1,0 +1,73 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log
+yarn-error.log
+pnpm-debug.log
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Build output
+dist/
+build/
+out/
+.cache/
+.vite/
+
+# Static bundle files
+*.bundle.js
+*.bundle.js.map
+*.js.map
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IDE and editor files
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Coverage files
+coverage/
+*.lcov
+*.lcov-report/
+
+# TypeScript
+*.tsbuildinfo
+
+# Next.js
+.next/
+.vercel/
+
+# Nuxt.js
+.nuxt/
+
+# Svelte
+.svelte-kit/
+
+# Redux DevTools
+redux-devtools-extension/
+
+# Generated directories
+.eslintcache
+.parcel-cache
+.storybook-out
