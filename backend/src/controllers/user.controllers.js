@@ -3,6 +3,8 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import User from "../models/user.model.js";
 import { Op } from "sequelize";
+import jwt from 'jsonwebtoken';
+
 
 const generateAccessAndRefreshToken = async (userId) => {
     try {
@@ -102,7 +104,7 @@ const login = asyncHandler(async (req, res, next) => {
 
         const options = {
             httpOnly: true,
-            httpOnly: true
+            secure:true,
         };
 
         res
@@ -117,7 +119,43 @@ const login = asyncHandler(async (req, res, next) => {
     }
 });
 
+const refreshTokens = asyncHandler(async (req, res) => {
+    const { refreshToken } = req.body;
+
+    if (!refreshToken) {
+        throw new ApiError(400, 'Refresh token is required');
+    }
+
+    try {
+        // Verify the refresh token
+        const decodedToken = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+
+        // Find the user with the given ID
+        const user = await User.findByPk(decodedToken.id);
+
+        if (!user || user.refreshToken !== refreshToken) {
+            throw new ApiError(401, 'Invalid refresh token');
+        }
+
+        // Generate new access and refresh tokens
+        const accessToken = user.generateAccessToken();
+        const newRefreshToken = user.generateRefreshToken();
+
+        // Update the user with the new refresh token
+        user.refreshToken = newRefreshToken;
+        await user.save({ fields: ['refreshToken'] });
+
+        res.status(200).json({
+            accessToken,
+            refreshToken: newRefreshToken
+        });
+    } catch (error) {
+        throw new ApiError(401, 'Invalid refresh token');
+    }
+});
+
 export {
     login,
-    registerUser
+    registerUser,
+    refreshTokens
 }

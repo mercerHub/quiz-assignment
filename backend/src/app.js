@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import { limiter } from './middlewares/rateLimiter.js';
 
 const app = express();
 
@@ -16,14 +17,11 @@ app.get("/",(req,res) => {
 });
 
 import questionRoutes from './routes/question.routes.js';
-import { limiter } from './middlewares/rateLimiter.js';
 
 import userRoutes from './routes/user.routes.js';
 
 app.use("/api/v1/questions", questionRoutes);
 app.use("/api/v1/users", userRoutes);
-
-
 
 
 export default app;

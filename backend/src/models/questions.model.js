@@ -11,7 +11,7 @@ const Question = sequelize.define('Question', {
         allowNull: false,
     },
     options: {
-        type: DataTypes.TEXT, // Options can be stored as JSON in TEXT format
+        type: DataTypes.TEXT,
         get() {
             const value = this.getDataValue('options');
             return value ? JSON.parse(value) : null;
