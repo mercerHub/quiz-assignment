@@ -19,9 +19,11 @@ app.get("/",(req,res) => {
 import questionRoutes from './routes/question.routes.js';
 
 import userRoutes from './routes/user.routes.js';
+import languageProcessing from './routes/languageProcessing.routes.js';
 
 app.use("/api/v1/questions", questionRoutes);
 app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/bonus", languageProcessing);
 
 
 export default app;

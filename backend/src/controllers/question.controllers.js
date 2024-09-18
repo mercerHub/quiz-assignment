@@ -3,14 +3,11 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import Question from "../models/questions.model.js"; // Import the Sequelize model
 import User from "../models/user.model.js";
-import e from "express";
 
 const getQuestions = asyncHandler(async (req, res, next) => {
   try {
     // Use Sequelize to fetch all questions
-    const questions = await Question.findAll({
-      
-    });
+    const questions = await Question.findAll({});
 
     if (questions.length === 0) {
       throw new ApiError(404, "No questions found");
