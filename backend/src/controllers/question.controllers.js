@@ -26,6 +26,7 @@ const checkSolution = asyncHandler(async (req, res, next) => {
   try {
     const userId = req.user.id;
     const { solutionData } = req.body;
+    console.log(solutionData);
     let pointsGained = 0;
     const result = [];
     await Promise.all(solutionData.map(async (data) => {
@@ -56,7 +57,7 @@ const checkSolution = asyncHandler(async (req, res, next) => {
         await user.save();
     }
 
-    res.status(200).json(new ApiResponse(200, result , "Solution checked successfully"));
+    res.status(200).json(new ApiResponse(200, {result,pointsGained} , "Solution checked successfully"));
   } catch (error) {
     next(error);
   }
